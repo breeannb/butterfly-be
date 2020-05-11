@@ -27,6 +27,20 @@ app.get('/butterflies/:id', async(req, res) => {
   res.json(data.rows);
 });
 
+//create a butterfly
+app.post('/butterflies/', async(req, res) => {
+  const id = req.body; // posts are in the body for security reasons
+  console.log('hello', req.body);
+  const data = await client.query(
+    `INSERT INTO butterflies (name, wingspan, endangered, color, owner_id)
+    VALUES ('monarch', 5, false, 'red', 1) 
+    returning *`, 
+    [id] //sanitized 
+  );
+
+  res.json(data.rows);
+});
+
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
