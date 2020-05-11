@@ -19,7 +19,10 @@ app.get('/butterflies', async(req, res) => {
 //get api route for one butterfly by particular id
 app.get('/butterflies/:id', async(req, res) => {
   const id = req.params.id; // when using the :id we use params instead of search 
-  const data = await client.query(`SELECT * from butterflies WHERE id = ${id}`);
+  const data = await client.query(
+    'SELECT * from butterflies WHERE id = $1', 
+    [id] //sanitized 
+  );
 
   res.json(data.rows);
 });
