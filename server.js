@@ -29,13 +29,12 @@ app.get('/butterflies/:id', async(req, res) => {
 
 //create a butterfly
 app.post('/butterflies/', async(req, res) => {
-  const id = req.body; // posts are in the body for security reasons
   console.log('hello', req.body);
   const data = await client.query(
     `INSERT INTO butterflies (name, wingspan, endangered, color, owner_id)
-    VALUES ('monarch', 5, false, 'red', 1) 
+    VALUES ($1, $2, $3, $4, $5) 
     returning *`, 
-    [id] //sanitized 
+    [req.body.name, req.body.wingspan, req.body.endangered, req.body.color, req.body.owner_id] //sanitized 
   );
 
   res.json(data.rows);
