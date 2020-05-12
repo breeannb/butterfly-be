@@ -29,7 +29,7 @@ app.get('/butterflies/:id', async(req, res) => {
 
 //create a butterfly
 app.post('/butterflies/', async(req, res) => {
-  console.log('hello', req.body);
+  // console.log('hello', req.body); successfully logged out a new post butterfly object
   const data = await client.query(
     `INSERT INTO butterflies (name, wingspan, endangered, color, owner_id)
     VALUES ($1, $2, $3, $4, $5) 
